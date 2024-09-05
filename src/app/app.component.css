@@ -1,0 +1,15 @@
+.container {
+  border: 2px solid rgb(247, 168, 58);
+}
+
+.active {
+  background-color: rgb(60, 153, 60);
+}
+
+.cp {
+  cursor: pointer;
+}
+
+.bg-secondary {
+  --bs-bg-opacity: 0.5;
+}

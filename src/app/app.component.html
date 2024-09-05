@@ -1,0 +1,102 @@
+<div class="container my-5">
+    <h3 class="text-center">Zoom Car Rental System</h3>
+    <div class="row bg-secondary py-2">
+        <h5 class="text-center">Admin Panel</h5>
+        <div class="col-md-3 py-1">
+            <input type="text" class="form-control" placeholder="Car Name" [(ngModel)]="carName">
+        </div>
+        <div class="col-md-3 py-1">
+            <input type="number" class="form-control" placeholder="Rate/Hr" [(ngModel)]="ratePerHr">
+        </div>
+        <div class="col-md-3 py-1">
+            <input type="number" class="form-control" placeholder="Rate/Day" [(ngModel)]="ratePerDay">
+        </div>
+        <div class="col-md-3 py-1">
+            <button class="btn btn-success mx-auto d-block px-5" (click)="addCar()">Add Car</button>
+        </div>
+        <div class="table-responsive ">
+            <table class="table table-responsive table-bordered border-secondary table-primary my-3">
+                <thead>
+                    <tr>
+                        <th>Sr No</th>
+                        <th>Car</th>
+                        <th>Rate / Hr</th>
+                        <th>Rate / Day</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngIf="!carList.length">
+                        <td colspan="4" class="text-center">
+                            <strong class="text-danger">No Cars Added Yet</strong>
+                        </td>
+                    </tr>
+                    <tr *ngFor="let car of carList; let index = index">
+                        <td>{{index + 1}}</td>
+                        <td>{{car.Name}}</td>
+                        <td>{{car.RatePerHour}}</td>
+                        <td>{{car.RatePerDay}}</td>
+                    </tr>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="row bg-secondary py-2">
+        <h6 class="text-center">Booking Form</h6>
+        <div class="col-md-6 py-1">
+            <select name="" id="" class="form-control" [(ngModel)]="selectedCar">
+                <option value="">Select Car</option>
+                <option [value]="car.Name" *ngFor="let car of carList">{{car.Name}}</option>
+            </select>
+        </div>
+        <div class="col-md-6 py-1">
+            <select name="" id="" class="form-control" [(ngModel)]="duration">
+                <option value="">Select Rent Type</option>
+                <option value="perDay">Per Day</option>
+                <option value="perHour">Per Hour</option>
+            </select>
+        </div>
+    </div>
+    <div class="row bg-secondary py-3">
+        <div class="col-md-4 py-1">
+            <input type="number" *ngIf="duration === 'perHour'" class="form-control" placeholder="Enter Hours"
+                [(ngModel)]="Hours">
+            <input type="number" *ngIf="duration === 'perDay'" class="form-control" placeholder="Enter Days"
+                [(ngModel)]="Days">
+        </div>
+        <div class="col-md-4 py-1">
+            <input type="number" class="form-control" placeholder="No of Cars" [(ngModel)]="noOfCars">
+        </div>
+        <div class="col-md-4 py-1">
+            <button class="btn btn-success px-5 mx-auto d-block" (click)="addToBook()">Add</button>
+        </div>
+        <div>
+            <ul *ngIf="BookedCars.length">
+                <ng-container *ngFor="let car of BookedCars">
+                    <li *ngIf="car.NumberOfDays != null">{{car.Name}} - for {{car.NumberOfDays}} Days & no. of Cars
+                        ({{car.NumberOfCars}})</li>
+
+                    <li *ngIf="car.NumberOfHours != null">{{car.Name}} - for {{car.NumberOfHours}} Hours & no. of Cars
+                        ({{car.NumberOfCars}})</li>
+                </ng-container>
+
+            </ul>
+        </div>
+
+    </div>
+    <div class="row bg-secondary py-2">
+        <div class="col">
+            <button class="btn btn-danger me-3" (click)="ClearForm()">Clear</button>
+            <button class="btn btn-success" (click)="CalculateBill()">Calculate Bill</button>
+        </div>
+
+    </div>
+    <div class="row bg-success" *ngIf="TotalBill">
+        <div class="col text-center">
+            Total Bill Amount <br>
+            {{TotalBill}}
+        </div>
+    </div>
+</div>
